@@ -114,7 +114,7 @@ let app = new Vue({
         }
       }
       app.emaill.value = ''
-      fetch('http://localhost:3000/mail',{
+      fetch('https://afternoon-eyrie-75932.herokuapp.com/mail',{
         method: "POST",
         headers: {
           'Content-Type': 'application/json'
