@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"  href="./assets/css/style.css">
+    <title>Конвертер валют</title>
+</head>
+<body>
+    <div class="loader"> 
+        <div class="holder">
+        <div class="preloader"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+        </div>
+    </div>
+    <div id="app">
+        <div class="title">
+            Конвертер
+        </div>
+        <div class="wrap">
+            <div class="container">
+                <div class="box">
+                    <div class="box__title"></div>
+                    <div class="box-meta">
+                       <div class="box-meta__coin main">
+                           RUB
+                       </div>
+                    </div>
+                    <div class="box-amount">
+                        <input type="number" placeholder="Ведите суммму"  v-model='coin.get' @input='operationCoin()' >
+                    </div>
+                        <div class="box-email">
+                            <div class="box-email__title">Записаться на обмен валюты</div>
+                            <input type='email'  @input="checkEmail()" class="box-email__name" name='email' placeholder="Имя email" v-model='emaill.value'></input>
+                            <button type="submit"  @click='sendMail()' class='box-email__button'>Отправить</button>   
+                        </div>
+                        
+                    </div>
+                    
+                   
+                <div class="wrap-triangle">
+                    
+                </div>
+                <div class="box">
+                    <div class="box-meta"  v-for="element in meta">               
+                        <div class="box-meta__coin" v-for="(element, i) in meta" :class='{"activeCoin" : currentCoin.index == i}' @click='operationCoin(i)'>
+                            {{element.name}}
+                        </div>
+                        <div class="box-meta__coin"  @click='windList = true'>
+                            <img src="./assets/img/back.png" alt="">
+                        </div>
+                    </div>
+                    <div class="box-total-amout">
+                        <span>{{coin.give}}</span> 
+                        <span class="box-total-amout__courses">
+                            1 {{currentCoin.coin.name}}  = {{curs}} RUR
+                        </span>
+
+                    </div>
+                   
+                </div>
+                <div class="box-list" v-if='windList'>
+                    <div class="box-list-search">
+                        <input type="text" placeholder="USD" v-model='search' @input='filterCoin()'>
+                    </div>
+                    <div class="box-list__scroll">
+                        <div class="box-list__coin" v-for='(coin, i) in CoinMas' :key="i" @click='getCurrentCoin(i)'>
+                            <div class="box-list__tiker">
+                                {{coin.name}}
+                            </div>
+                            <div class="box-list__name"> {{coin.details.Name}}</div>    
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+        <transition name='fade'>
+            <div class="message" v-if='emaill.check === "right"' key='right'>
+                <div class="message-inner">
+                    <div class="message-inner_right">
+                        <img src="./assets/img/Tick_Mark_Dark_icon-icons.com_69147.png" alt="">
+                    </div>
+                    <div class='message-inner__text'> Сообщение  успешно отправленно! </div>  
+                </div>
+            </div>
+            <div class="message err" v-if='emaill.check === "err"' key='err'>
+                <div class="message-inner">
+                    <div class="message-inner_right">
+                        <img src="./assets/img/Close_Icon_Circle_icon-icons.com_69142.png" alt="">
+                    </div>
+                    <div class='message-inner__text'> Произошла ошибка </div>  
+                </div>
+            </div>
+        </transition>
+        <footer>
+
+        </footer>   
+    </div>
+
+<script src="./assets/js/vue.js"></script>
+<script src="./assets/js/main.js"></script>
+</body>
+</html>
